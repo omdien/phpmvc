@@ -17,28 +17,46 @@ class Pegawai_model {
     //    ];
     //
 
-    private $dbh; //database handler
-    private $stmt;
+    //private $dbh; //database handler
+    //private $stmt;
+
+    //public function __construct()
+    //{
+        //data source name
+        //$dsn = 'mysql:host=localhost;dbname=karimutu';
+
+        //try {
+        //    $this->dbh = new PDO($dsn, 'root', '');
+        //} catch(PDOException $e) {
+        //    die($e->getMessage());
+        //}
+    //}
+
+    private $tabel = 'tb_r_pegawai';
+    private $db;
 
     public function __construct()
     {
-        //data source name
-        $dsn = 'mysql:host=localhost;dbname=karimutu';
-
-        try {
-            $this->dbh = new PDO($dsn, 'root', '');
-        } catch(PDOException $e) {
-            die($e->getMessage());
-        }
+        $this->db = new Database;
     }
 
     public function getAllPegawai()
     {
         //return $this ->peg;
-        $this->stmt = $this->dbh->prepare('Select * from tb_r_pegawai');
-        $this->stmt->execute();
-        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        //$this->stmt = $this->dbh->prepare('Select * from tb_r_pegawai');
+        //$this->stmt->execute();
+        //return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $this->db->query('SELECT * FROM ' . $this->tabel);
+        return $this->db->resultSet();
     }
 
+    public function getPegawaiById($nip_baru)
+    {
+        $this->db->query('SELECT * FROM ' . $this->tabel . ' WHERE nip_baru=:nip_baru');
+        $this->db->bind('nip_baru',$nip_baru);
+        return $this->db->single();
+    }
 
 }

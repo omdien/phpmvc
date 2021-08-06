@@ -1,16 +1,23 @@
 <div class="container mt-3">
     <div class="row">
-        <div class="col-6">
-            <h3>Daftar Pegawai</h3>
+        <div class="col-lg-6">
+            <?php Flasher::flash(); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formModal">
                 Tambah Data Pegawai
             </button>
             <br><br>
-            <ul>
+            <h3>Daftar Pegawai</h3>
+            <ul class="list-group">
                 <?php foreach($data['peg'] as $peg) : ?>
-                    <li class = "list-group-item d-flex justify-content-between align-items-center"><?= $peg['nama']; ?> 
-                        <a href="<?= BASEURL; ?>/pegawai/detail/<?= $peg['id'] ?>" class="badge bg-primary">detail</a>
+                    <li class = "list-group-item">
+                        <?= $peg['nama']; ?> 
+                        <a href="<?= BASEURL; ?>/pegawai/hapus/<?= $peg['id'] ?>" class="badge bg-danger float-end ms-1" onclick="return confirm('yakin');">hapus</a>
+                        <a href="<?= BASEURL; ?>/pegawai/detail/<?= $peg['id'] ?>" class="badge bg-primary float-end ms-1">detail</a>
                     </li>
                 <?php endforeach; ?>
             </ul>
@@ -29,7 +36,7 @@
       <div class="modal-body">
         <form action="<?= BASEURL;?>/pegawai/tambah" method="post">
             <div class="form-group">
-                <label for="nip_baru">NIP</label>
+                <label for="nip">NIP</label>
                 <input type="text" class="form-control" id="nip" name="nip">
             </div>
             <div class="form-group">
